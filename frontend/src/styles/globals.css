@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* -------------------------------------------------------------
+     * GeoStrata Enterprise Light Theme - Microsoft Fluent / ArcGIS Inspired
+     * ----------------------------------------------------------- */
+    --background: 210 40% 98%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    /* Primary: #2563EB (GovTech Digital Infrastructure Blue) */
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+
+    /* Secondary: #0F172A (Executive Slate Dark) */
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    /* Accent: #06B6D4 (High-Precision Cyan) */
+    --accent: 188.7 94.5% 42.7%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    /* Success: #22C55E */
+    --success: 142.1 70.6% 45.3%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning: #F59E0B */
+    --warning: 37.7 92.1% 50.2%;
+    --warning-foreground: 222.2 47.4% 11.2%;
+
+    /* Danger / Destructive: #EF4444 */
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar Dimensions & Colors */
+    --sidebar-width: 16.5rem;
+    --sidebar-collapsed-width: 4.5rem;
+    --sidebar-bg: 0 0% 100%;
+    --sidebar-border: 214.3 31.8% 91.4%;
+    --sidebar-fg: 222.2 47.4% 11.2%;
+    --sidebar-active-bg: 221.2 83.2% 53.3%;
+    --sidebar-active-fg: 0 0% 100%;
+
+    /* Top Navigation Height */
+    --top-nav-height: 4rem;
+  }
+
+  .dark {
+    /* -------------------------------------------------------------
+     * GeoStrata Enterprise Dark Theme - Command Center & GIS View
+     * ----------------------------------------------------------- */
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 6.5%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 6.5%;
+    --popover-foreground: 210 40% 98%;
+
+    /* Primary: #2563EB */
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    /* Secondary: #0F172A */
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    /* Accent: #06B6D4 */
+    --accent: 188.7 94.5% 42.7%;
+    --accent-foreground: 210 40% 98%;
+
+    /* Success: #22C55E */
+    --success: 142.1 70.6% 45.3%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning: #F59E0B */
+    --warning: 37.7 92.1% 50.2%;
+    --warning-foreground: 222.2 47.4% 11.2%;
+
+    /* Danger / Destructive: #EF4444 */
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+
+    /* Sidebar Dark */
+    --sidebar-bg: 222.2 84% 6.5%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-fg: 210 40% 98%;
+    --sidebar-active-bg: 217.2 91.2% 59.8%;
+    --sidebar-active-fg: 222.2 47.4% 11.2%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased selection:bg-gov-primary/20 selection:text-gov-primary;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  /* WCAG 2.1 AA Focus Rings for Accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  /* Custom Sleek Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full hover:bg-muted-foreground/40 transition-colors;
+  }
+}
+
+/* -------------------------------------------------------------
+ * Enterprise Typography System Classes
+ * ----------------------------------------------------------- */
+@layer utilities {
+  .typo-heading-1 {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-foreground;
+  }
+  .typo-heading-2 {
+    @apply text-2xl sm:text-3xl font-bold tracking-tight text-foreground;
+  }
+  .typo-heading-3 {
+    @apply text-xl sm:text-2xl font-semibold tracking-tight text-foreground;
+  }
+  .typo-title {
+    @apply text-lg font-semibold tracking-tight text-foreground;
+  }
+  .typo-subtitle {
+    @apply text-sm sm:text-base font-medium text-muted-foreground;
+  }
+  .typo-body {
+    @apply text-sm sm:text-base text-foreground leading-relaxed;
+  }
+  .typo-caption {
+    @apply text-xs text-muted-foreground tracking-normal;
+  }
+  .typo-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-muted-foreground;
+  }
+  .typo-mono {
+    @apply font-mono text-xs tracking-tight text-foreground;
+  }
+
+  /* Glassmorphism & Elevation */
+  .glass-panel {
+    @apply bg-background/80 backdrop-blur-md border border-border/60 shadow-sm;
+  }
+  .glass-card {
+    @apply bg-card/90 backdrop-blur-md border border-border/80 shadow-sm hover:shadow-md transition-shadow;
+  }
+}

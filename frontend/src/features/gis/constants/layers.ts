@@ -1,0 +1,138 @@
+import type { CadastralLayer } from "../types/gis-types";
+
+export const DEFAULT_CADASTRAL_LAYERS: CadastralLayer[] = [
+  // 1. Cadastral Parcels
+  {
+    id: "layer-parcels",
+    name: "Cadastral Parcels",
+    category: "cadastre",
+    description: "Official 2D ground parcels with ULPIN Bhu-Aadhaar boundary definitions.",
+    visible: true,
+    opacity: 0.85,
+    zIndex: 10,
+    type: "vector",
+    color: "#2563eb",
+    isSystem: true,
+  },
+  // 2. Survey Numbers
+  {
+    id: "layer-survey-numbers",
+    name: "Survey Numbers",
+    category: "cadastre",
+    description: "Revenue CTS numbers and survey sheet boundary identifiers.",
+    visible: true,
+    opacity: 0.9,
+    zIndex: 14,
+    type: "vector",
+    color: "#0284c7",
+  },
+  // 3. 3D ULPIN Labels
+  {
+    id: "layer-ulpin-labels",
+    name: "ULPIN Labels",
+    category: "cadastre",
+    description: "14-digit geospatial coordinate identifier markers on parcel centroids.",
+    visible: true,
+    opacity: 1.0,
+    zIndex: 15,
+    type: "vector",
+    color: "#06b6d4",
+    isSystem: true,
+  },
+  // 4. Buildings Footprints
+  {
+    id: "layer-buildings",
+    name: "Buildings",
+    category: "infrastructure",
+    description: "Ground building perimeters and plinth outlines.",
+    visible: true,
+    opacity: 0.75,
+    zIndex: 18,
+    type: "vector",
+    color: "#f59e0b",
+  },
+  // 5. 3D Buildings
+  {
+    id: "layer-3d-buildings",
+    name: "3D Buildings",
+    category: "infrastructure",
+    description: "Volumetric multi-tier polyhedral building extrusions with floor heights.",
+    visible: true,
+    opacity: 0.8,
+    zIndex: 20,
+    type: "vector",
+    color: "#8b5cf6",
+  },
+  // 6. Survey Points (DGPS Rover Benchmarks)
+  {
+    id: "layer-survey-points",
+    name: "Survey Points",
+    category: "cadastre",
+    description: "High-precision Ground Control Points (GCP) and RTK rover capture coordinates.",
+    visible: true,
+    opacity: 1.0,
+    zIndex: 25,
+    type: "vector",
+    color: "#8b5cf6",
+  },
+  // 7. Roads & Access Corridors
+  {
+    id: "layer-roads",
+    name: "Roads",
+    category: "infrastructure",
+    description: "Public rights of way, municipal road network, and cadastral easements.",
+    visible: true,
+    opacity: 0.7,
+    zIndex: 8,
+    type: "vector",
+    color: "#64748b",
+  },
+  // 8. Administrative Boundaries
+  {
+    id: "layer-admin-bounds",
+    name: "Administrative Boundaries",
+    category: "cadastre",
+    description: "State, district, taluka, and municipal ward administrative boundary lines.",
+    visible: true,
+    opacity: 0.9,
+    zIndex: 5,
+    type: "vector",
+    color: "#ef4444",
+  },
+  // 9. Revenue Villages
+  {
+    id: "layer-villages",
+    name: "Villages",
+    category: "cadastre",
+    description: "Settlement gaothan limits and revenue village demarcation bounds.",
+    visible: true,
+    opacity: 0.8,
+    zIndex: 6,
+    type: "vector",
+    color: "#10b981",
+  },
+  // 10. AI Violations & Encroachments
+  {
+    id: "layer-ai-violations",
+    name: "AI Violations",
+    category: "cadastre",
+    description: "AI-detected road setback encroachments, boundary disputes, and CRZ risk zones.",
+    visible: true,
+    opacity: 0.85,
+    zIndex: 30,
+    type: "vector",
+    color: "#dc2626",
+  },
+  // 11. Drone Imagery Placeholder
+  {
+    id: "layer-drone-imagery",
+    name: "Drone Imagery Placeholder",
+    category: "base",
+    description: "Sub-5cm GSD high-resolution UAV orthomosaic survey tiles.",
+    visible: false,
+    opacity: 0.9,
+    zIndex: 2,
+    type: "raster",
+    color: "#059669",
+  },
+];

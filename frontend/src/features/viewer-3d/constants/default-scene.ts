@@ -1,0 +1,317 @@
+import type { DigitalTwinNode } from "../types/twin-types";
+
+export const DEFAULT_TWIN_NODES: DigitalTwinNode[] = [
+  // 1. Root Ground Parcel
+  {
+    id: "node-twin-parcel-01",
+    type: "PARCEL",
+    name: "Cadastral Parcel P-401/A",
+    code: "P-401/A",
+    childrenIds: ["node-twin-bldg-01"],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 14.5,
+      rotationDegrees: [0, 0, 0],
+      scale: [1, 1, 1],
+      heightMeters: 0.2,
+    },
+    meshProperties: {
+      color: "#2563eb",
+      opacity: 0.4,
+      wireframe: false,
+      visible: true,
+    },
+    metadata: {
+      ulpin: "27518001004201",
+      ownerName: "Rajiv M. Mehra & Anr.",
+      surveyNumber: "CTS-142/1",
+      carpetAreaSqm: 1420.5,
+      usageType: "RESIDENTIAL",
+    },
+  },
+
+  // 2. Building Complex
+  {
+    id: "node-twin-bldg-01",
+    type: "BUILDING",
+    name: "Palm Heights Complex",
+    code: "BLDG-PALM",
+    parentId: "node-twin-parcel-01",
+    childrenIds: ["node-twin-tower-a"],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 14.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 54.0,
+    },
+    meshProperties: {
+      color: "#64748b",
+      opacity: 0.85,
+      wireframe: false,
+      visible: true,
+    },
+    metadata: {
+      builtupAreaSqm: 8850.0,
+      volumeCum: 26550.0,
+      usageType: "RESIDENTIAL",
+    },
+  },
+
+  // 3. Tower A
+  {
+    id: "node-twin-tower-a",
+    type: "TOWER",
+    name: "Palm Heights Tower A",
+    code: "TWR-A",
+    parentId: "node-twin-bldg-01",
+    childrenIds: Array.from({ length: 18 }, (_, i) => `node-twin-flr-${i + 1}`),
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 14.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 54.0,
+    },
+    meshProperties: {
+      color: "#3b82f6",
+      opacity: 0.9,
+      wireframe: false,
+      visible: true,
+    },
+    metadata: {
+      builtupAreaSqm: 8850.0,
+      volumeCum: 26550.0,
+      usageType: "RESIDENTIAL",
+    },
+  },
+
+  // 4. Floors 1 to 18
+  ...Array.from({ length: 18 }, (_, i) => {
+    const floorNum = i + 1;
+    const floorElevation = 14.5 + i * 3.0;
+
+    return {
+      id: `node-twin-flr-${floorNum}`,
+      type: "FLOOR" as const,
+      name: `Floor Level ${floorNum}`,
+      code: `FLR-${floorNum < 10 ? `0${floorNum}` : floorNum}`,
+      parentId: "node-twin-tower-a",
+      childrenIds: [
+        `node-twin-unit-${floorNum}01`,
+        `node-twin-unit-${floorNum}02`,
+        `node-twin-unit-${floorNum}03`,
+        `node-twin-unit-${floorNum}04`,
+      ],
+      coordinates: {
+        latitude: 19.1382,
+        longitude: 72.8285,
+        elevationAmsl: floorElevation,
+        rotationDegrees: [0, 15, 0] as [number, number, number],
+        scale: [1, 1, 1] as [number, number, number],
+        heightMeters: 3.0,
+        floorElevationAmsl: floorElevation,
+      },
+      meshProperties: {
+        color: floorNum === 5 ? "#06b6d4" : "#475569",
+        opacity: 0.9,
+        wireframe: false,
+        visible: true,
+      },
+      metadata: {
+        floorLevel: floorNum,
+        builtupAreaSqm: 490.0,
+        volumeCum: 1470.0,
+        usageType: floorNum === 1 ? ("COMMERCIAL" as const) : ("RESIDENTIAL" as const),
+      },
+    };
+  }),
+
+  // 5. Units on Floor 5 (Detailed Strata Units)
+  {
+    id: "node-twin-unit-501",
+    type: "UNIT",
+    name: "Residential Unit 501",
+    code: "U-501",
+    parentId: "node-twin-flr-5",
+    childrenIds: [],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 26.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 2.85,
+      floorElevationAmsl: 26.5,
+    },
+    meshProperties: {
+      color: "#3b82f6",
+      opacity: 0.85,
+      visible: true,
+    },
+    metadata: {
+      ulpin3D: "27518001004201-F05-U501",
+      unitNumber: "501",
+      floorLevel: 5,
+      carpetAreaSqm: 112.5,
+      volumeCum: 320.6,
+      ownerName: "Dr. Arvind Joshi",
+      usageType: "RESIDENTIAL",
+      taxStatus: "PAID",
+    },
+  },
+  {
+    id: "node-twin-unit-502",
+    type: "UNIT",
+    name: "Residential Unit 502 (Target Parcel)",
+    code: "U-502",
+    parentId: "node-twin-flr-5",
+    childrenIds: ["node-twin-room-502-living", "node-twin-room-502-bed"],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 26.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 2.85,
+      floorElevationAmsl: 26.5,
+    },
+    meshProperties: {
+      color: "#06b6d4", // Glowing Cyan
+      opacity: 0.95,
+      visible: true,
+    },
+    metadata: {
+      ulpin: "27518001004201",
+      ulpin3D: "27518001004201-F05-U502",
+      unitNumber: "502",
+      floorLevel: 5,
+      carpetAreaSqm: 125.0,
+      volumeCum: 356.25,
+      ownerName: "Rajiv M. Mehra & Sunita R. Mehra",
+      usageType: "RESIDENTIAL",
+      taxStatus: "PAID",
+    },
+  },
+  {
+    id: "node-twin-unit-503",
+    type: "UNIT",
+    name: "Residential Unit 503",
+    code: "U-503",
+    parentId: "node-twin-flr-5",
+    childrenIds: [],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 26.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 2.85,
+      floorElevationAmsl: 26.5,
+    },
+    meshProperties: {
+      color: "#3b82f6",
+      opacity: 0.85,
+      visible: true,
+    },
+    metadata: {
+      ulpin3D: "27518001004201-F05-U503",
+      unitNumber: "503",
+      floorLevel: 5,
+      carpetAreaSqm: 105.0,
+      volumeCum: 299.25,
+      ownerName: "Vikram Singhania",
+      usageType: "RESIDENTIAL",
+      taxStatus: "PAID",
+    },
+  },
+  {
+    id: "node-twin-unit-504",
+    type: "UNIT",
+    name: "Residential Unit 504",
+    code: "U-504",
+    parentId: "node-twin-flr-5",
+    childrenIds: [],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 26.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 2.85,
+      floorElevationAmsl: 26.5,
+    },
+    meshProperties: {
+      color: "#3b82f6",
+      opacity: 0.85,
+      visible: true,
+    },
+    metadata: {
+      ulpin3D: "27518001004201-F05-U504",
+      unitNumber: "504",
+      floorLevel: 5,
+      carpetAreaSqm: 110.0,
+      volumeCum: 313.5,
+      ownerName: "Pooja Hegde",
+      usageType: "RESIDENTIAL",
+      taxStatus: "PENDING",
+    },
+  },
+
+  // 6. Future Room Level (Sub-Unit BIM Integration)
+  {
+    id: "node-twin-room-502-living",
+    type: "ROOM",
+    name: "Living & Dining Hall (Unit 502)",
+    code: "RM-502-LIV",
+    parentId: "node-twin-unit-502",
+    childrenIds: [],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 26.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 2.85,
+    },
+    meshProperties: {
+      color: "#10b981",
+      opacity: 0.7,
+      visible: true,
+    },
+    metadata: {
+      carpetAreaSqm: 48.5,
+      volumeCum: 138.2,
+      usageType: "RESIDENTIAL",
+    },
+  },
+  {
+    id: "node-twin-room-502-bed",
+    type: "ROOM",
+    name: "Master Suite & Balcony (Unit 502)",
+    code: "RM-502-MBED",
+    parentId: "node-twin-unit-502",
+    childrenIds: [],
+    coordinates: {
+      latitude: 19.1382,
+      longitude: 72.8285,
+      elevationAmsl: 26.5,
+      rotationDegrees: [0, 15, 0],
+      scale: [1, 1, 1],
+      heightMeters: 2.85,
+    },
+    meshProperties: {
+      color: "#8b5cf6",
+      opacity: 0.7,
+      visible: true,
+    },
+    metadata: {
+      carpetAreaSqm: 38.0,
+      volumeCum: 108.3,
+      usageType: "RESIDENTIAL",
+    },
+  },
+];
