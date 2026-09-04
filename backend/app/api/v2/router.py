@@ -4,7 +4,7 @@ from app.schemas.common import APIEnvelope
 api_v2_router = APIRouter()
 
 
-@router_stub := APIRouter()
+router_stub = APIRouter()
 @router_stub.get("/spec", response_model=APIEnvelope[dict], summary="API v2 Specification & Microservices Gateway")
 async def get_v2_spec():
     """

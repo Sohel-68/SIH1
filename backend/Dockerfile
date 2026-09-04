@@ -4,7 +4,7 @@
 # ==============================================================================
 
 # Stage 1: Build C-extensions & Wheels
-FROM python:3.12-slim AS builder
+FROM python:3.12-slim-bookworm AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
@@ -23,7 +23,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
 
 # Stage 2: Final Lightweight Runtime
-FROM python:3.12-slim AS runner
+FROM python:3.12-slim-bookworm AS runner
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1

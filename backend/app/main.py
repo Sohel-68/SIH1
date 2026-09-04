@@ -16,9 +16,10 @@ async def lifespan(app: FastAPI):
     """Application startup and graceful shutdown lifespan events."""
     # Startup: test database connection & initialize Redis client
     try:
+        import app.models  # noqa: F401
+        from app.models.base import Base
         async with engine.begin() as conn:
-            # Validates PostGIS database connectivity
-            pass
+            await conn.run_sync(Base.metadata.create_all)
         await get_redis_client()
     except Exception as e:
         print(f"[CRITICAL] Startup connection warning: {e}")
